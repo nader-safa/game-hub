@@ -1,17 +1,24 @@
 import {
+  Button,
   HStack,
   Image,
   List,
   ListItem,
   Skeleton,
   SkeletonText,
-  Text,
 } from '@chakra-ui/react'
-import useGenres from '../hooks/useGenres'
+import useGenres, { Genre } from '../hooks/useGenres'
 import optimizedImageUrl from '../services/image-url'
 
-const GenreList = () => {
+interface Props {
+  onGenreClick: (genre: Genre) => void
+}
+
+const GenreList = ({ onGenreClick }: Props) => {
   const { data: genres, error, isLoading } = useGenres()
+
+  if (error) return null
+
   return (
     <List>
       {isLoading &&
@@ -21,7 +28,6 @@ const GenreList = () => {
             <SkeletonText width={'100%'} noOfLines={2} />
           </HStack>
         ))}
-      {error && <Text>{error}</Text>}
       {genres.map((genre) => (
         <ListItem key={genre.id} paddingY='5px'>
           <HStack>
@@ -31,7 +37,13 @@ const GenreList = () => {
               alt={genre.name}
               borderRadius={5}
             />
-            <Text fontSize='lg'>{genre.name}</Text>
+            <Button
+              variant='link'
+              fontSize='lg'
+              onClick={() => onGenreClick(genre)}
+            >
+              {genre.name}
+            </Button>
           </HStack>
         </ListItem>
       ))}
