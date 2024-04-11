@@ -29,7 +29,7 @@ const useData = <T>(endPoint: string) => {
       })
 
     return () => controller.abort()
-  }, [])
+  }, [endPoint])
 
   return {
     data,
