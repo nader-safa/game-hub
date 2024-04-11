@@ -7,6 +7,7 @@ import { useState } from 'react'
 import PlatformSelector from './components/platformSelector'
 import { Platform } from './hooks/useGames'
 import SortSelector from './components/sortSelector'
+import GameHeading from './components/gameHeading'
 
 export interface SortOrder {
   value: string
@@ -48,6 +49,7 @@ function App() {
         </GridItem>
       </Show>
       <GridItem area={'main'}>
+        <GameHeading gameQuery={gameQuery} />
         <Flex gap={3} marginBottom={5}>
           <PlatformSelector
             selectedPlatform={gameQuery.platform}
