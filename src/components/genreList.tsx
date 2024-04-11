@@ -1,5 +1,6 @@
 import {
   Button,
+  Heading,
   HStack,
   Image,
   List,
@@ -22,6 +23,9 @@ const GenreList = ({ onGenreSelect, selectedGenre }: Props) => {
 
   return (
     <List>
+      <Heading fontSize='2xl' mb={3}>
+        Genres
+      </Heading>
       {isLoading &&
         [1, 2, 3, 4, 5, 6].map((i) => (
           <HStack key={i} paddingY='5px'>
@@ -37,8 +41,11 @@ const GenreList = ({ onGenreSelect, selectedGenre }: Props) => {
               boxSize='40px'
               alt={genre.name}
               borderRadius={5}
+              objectFit='cover'
             />
             <Button
+              whiteSpace='normal'
+              textAlign='left'
               variant='link'
               fontSize='lg'
               fontWeight={selectedGenre?.id === genre.id ? 'bold' : 'normal'}
