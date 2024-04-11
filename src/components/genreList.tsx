@@ -11,11 +11,11 @@ import useGenres, { Genre } from '../hooks/useGenres'
 import optimizedImageUrl from '../services/image-url'
 
 interface Props {
-  onGenreClick: (genre: Genre) => void
+  onGenreSelect: (genre: Genre) => void
   selectedGenre: Genre | null
 }
 
-const GenreList = ({ onGenreClick, selectedGenre }: Props) => {
+const GenreList = ({ onGenreSelect, selectedGenre }: Props) => {
   const { data: genres, error, isLoading } = useGenres()
 
   if (error) return null
@@ -42,7 +42,7 @@ const GenreList = ({ onGenreClick, selectedGenre }: Props) => {
               variant='link'
               fontSize='lg'
               fontWeight={selectedGenre?.id === genre.id ? 'bold' : 'normal'}
-              onClick={() => onGenreClick(genre)}
+              onClick={() => onGenreSelect(genre)}
             >
               {genre.name}
             </Button>
