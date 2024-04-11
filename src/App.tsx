@@ -8,6 +8,7 @@ function App() {
       templateAreas={{ base: `"nav" "main"`, lg: `"nav nav" "aside main"` }}
       templateColumns={{ base: '1fr', lg: '200px 1fr' }}
       padding='10px'
+      gap={3}
     >
       <GridItem area={'nav'}>
         <NavBar />
