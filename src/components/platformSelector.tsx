@@ -36,7 +36,6 @@ const PlatformSelector = ({ selectedPlatform, onPlatformSelect }: Props) => {
             {platform.name}
           </MenuItem>
         ))}
-        <MenuItem>PC</MenuItem>
       </MenuList>
     </Menu>
   )
