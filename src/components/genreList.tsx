@@ -12,9 +12,10 @@ import optimizedImageUrl from '../services/image-url'
 
 interface Props {
   onGenreClick: (genre: Genre) => void
+  selectedGenre: Genre | null
 }
 
-const GenreList = ({ onGenreClick }: Props) => {
+const GenreList = ({ onGenreClick, selectedGenre }: Props) => {
   const { data: genres, error, isLoading } = useGenres()
 
   if (error) return null
@@ -23,9 +24,9 @@ const GenreList = ({ onGenreClick }: Props) => {
     <List>
       {isLoading &&
         [1, 2, 3, 4, 5, 6].map((i) => (
-          <HStack key={i} marginY='5px'>
+          <HStack key={i} paddingY='5px'>
             <Skeleton height='40px' width='40px' borderRadius={5} />
-            <SkeletonText width={'100%'} noOfLines={2} />
+            <SkeletonText width='150px' noOfLines={2} />
           </HStack>
         ))}
       {genres.map((genre) => (
@@ -33,13 +34,14 @@ const GenreList = ({ onGenreClick }: Props) => {
           <HStack>
             <Image
               src={optimizedImageUrl(genre.image_background)}
-              boxSize='2rem'
+              boxSize='40px'
               alt={genre.name}
               borderRadius={5}
             />
             <Button
               variant='link'
               fontSize='lg'
+              fontWeight={selectedGenre?.id === genre.id ? 'bold' : 'normal'}
               onClick={() => onGenreClick(genre)}
             >
               {genre.name}
