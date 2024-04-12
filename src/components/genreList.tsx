@@ -8,15 +8,15 @@ import {
   Skeleton,
   SkeletonText,
 } from '@chakra-ui/react'
-import useGenres, { Genre } from '../hooks/useGenres'
+import useGenres from '../hooks/useGenres'
 import optimizedImageUrl from '../services/image-url'
 
 interface Props {
-  onGenreSelect: (genre: Genre) => void
-  selectedGenre: Genre | null
+  selectedGenreId?: number
+  onGenreSelect: (genreId: number) => void
 }
 
-const GenreList = ({ onGenreSelect, selectedGenre }: Props) => {
+const GenreList = ({ onGenreSelect, selectedGenreId }: Props) => {
   const { data: genres, error, isLoading } = useGenres()
 
   if (error) return null
@@ -48,8 +48,8 @@ const GenreList = ({ onGenreSelect, selectedGenre }: Props) => {
               textAlign='left'
               variant='link'
               fontSize='lg'
-              fontWeight={selectedGenre?.id === genre.id ? 'bold' : 'normal'}
-              onClick={() => onGenreSelect(genre)}
+              fontWeight={selectedGenreId === genre.id ? 'bold' : 'normal'}
+              onClick={() => onGenreSelect(genre.id)}
             >
               {genre.name}
             </Button>

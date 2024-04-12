@@ -7,15 +7,18 @@ import {
   Spinner,
 } from '@chakra-ui/react'
 import { FaChevronDown } from 'react-icons/fa'
-import usePlatforms, { Platform } from '../hooks/usePlatforms'
+import usePlatforms from '../hooks/usePlatforms'
+import usePlatform from '../hooks/usePlatform'
 
 interface Props {
-  selectedPlatform: Platform | null
-  onPlatformSelect: (platform: Platform) => void
+  selectedPlatformId?: number
+  onPlatformSelect: (platformId: number) => void
 }
 
-const PlatformSelector = ({ selectedPlatform, onPlatformSelect }: Props) => {
+const PlatformSelector = ({ selectedPlatformId, onPlatformSelect }: Props) => {
   const { data: platforms, error, isLoading } = usePlatforms()
+
+  const selectedPlatform = usePlatform(selectedPlatformId)
 
   if (error) return null
 
@@ -30,7 +33,7 @@ const PlatformSelector = ({ selectedPlatform, onPlatformSelect }: Props) => {
           <MenuItem
             key={platform.id}
             value={platform.id}
-            onClick={() => onPlatformSelect(platform)}
+            onClick={() => onPlatformSelect(platform.id)}
           >
             {platform.name}
           </MenuItem>

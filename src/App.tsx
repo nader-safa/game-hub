@@ -2,12 +2,10 @@ import { Flex, Grid, GridItem, Show } from '@chakra-ui/react'
 import NavBar from './components/navBar'
 import GamesGrid from './components/gamesGrid'
 import GenreList from './components/genreList'
-import { Genre } from './hooks/useGenres'
 import { useState } from 'react'
 import PlatformSelector from './components/platformSelector'
 import SortSelector from './components/sortSelector'
 import GameHeading from './components/gameHeading'
-import { Platform } from './hooks/usePlatforms'
 
 export interface SortOrder {
   value: string
@@ -15,9 +13,9 @@ export interface SortOrder {
 }
 
 export interface GameQuery {
-  genre: Genre | null
-  platform: Platform | null
-  sortOrder: SortOrder | null
+  genreId?: number
+  platformId?: number
+  sortOrder?: string
   searchText: string
 }
 
@@ -41,10 +39,10 @@ function App() {
       <Show above='lg'>
         <GridItem area={'aside'}>
           <GenreList
-            onGenreSelect={(genre) =>
-              setGameQuery((prevState) => ({ ...prevState, genre }))
+            onGenreSelect={(genreId) =>
+              setGameQuery((prevState) => ({ ...prevState, genreId }))
             }
-            selectedGenre={gameQuery.genre}
+            selectedGenreId={gameQuery.genreId}
           />
         </GridItem>
       </Show>
@@ -52,16 +50,19 @@ function App() {
         <GameHeading gameQuery={gameQuery} />
         <Flex gap={3} marginBottom={5}>
           <PlatformSelector
-            selectedPlatform={gameQuery.platform}
-            onPlatformSelect={(platform) =>
-              setGameQuery((prevState) => ({ ...prevState, platform }))
+            selectedPlatformId={gameQuery.platformId}
+            onPlatformSelect={(platformId) =>
+              setGameQuery((prevState) => ({
+                ...prevState,
+                platformId,
+              }))
             }
           />
           <SortSelector
             onSortSelect={(sortOrder) =>
               setGameQuery((prevState) => ({ ...prevState, sortOrder }))
             }
-            selectedSortOrder={gameQuery.sortOrder}
+            selectedSortOrderValue={gameQuery.sortOrder}
           />
         </Flex>
         <GamesGrid gameQuery={gameQuery} />

@@ -1,13 +1,12 @@
 import { Button, Menu, MenuButton, MenuList, MenuItem } from '@chakra-ui/react'
 import { FaChevronDown } from 'react-icons/fa'
-import { SortOrder } from '../App'
 
 interface Props {
-  onSortSelect: (sort: SortOrder) => void
-  selectedSortOrder: SortOrder | null
+  onSortSelect: (sort: string) => void
+  selectedSortOrderValue?: string
 }
 
-const SortSelector = ({ onSortSelect, selectedSortOrder }: Props) => {
+const SortSelector = ({ onSortSelect, selectedSortOrderValue }: Props) => {
   const sortOrders = [
     { value: '', label: 'Relevance' },
     { value: '-added', label: 'Date added' },
@@ -16,6 +15,10 @@ const SortSelector = ({ onSortSelect, selectedSortOrder }: Props) => {
     { value: '-metacritic', label: 'Popularity' },
     { value: '-rating', label: 'Average rating' },
   ]
+
+  const selectedSortOrder = sortOrders.find(
+    (order) => order.value === selectedSortOrderValue
+  )
   return (
     <Menu>
       <MenuButton as={Button} rightIcon={<FaChevronDown />}>
@@ -26,7 +29,7 @@ const SortSelector = ({ onSortSelect, selectedSortOrder }: Props) => {
           <MenuItem
             key={order.value}
             value={order.value}
-            onClick={() => onSortSelect(order)}
+            onClick={() => onSortSelect(order.value)}
           >
             {order.label}
           </MenuItem>
