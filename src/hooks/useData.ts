@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react'
 import apiClient from '../services/api-client'
 import { AxiosRequestConfig, CanceledError } from 'axios'
 
-interface FetchResponse<T> {
+export interface FetchResponse<T> {
   count: number
-  next: string
-  previous: string
+  next: string | null
+  previous: string | null
   results: T[]
 }
 const useData = <T>(
