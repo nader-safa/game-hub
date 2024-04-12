@@ -26,7 +26,7 @@ const PlatformSelector = ({ selectedPlatform, onPlatformSelect }: Props) => {
       </MenuButton>
       <MenuList onSelect={() => console.log('selected!')}>
         {isLoading && <Spinner />}
-        {platforms?.results.map((platform) => (
+        {platforms?.map((platform) => (
           <MenuItem
             key={platform.id}
             value={platform.id}
