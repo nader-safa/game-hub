@@ -18,6 +18,5 @@ const useGenres = () =>
     staleTime: 24 * 60 * 60 * 1000, // 1d
     initialData: genres,
   })
-// const useGenres = () => useData<Genre>('/genres')
 
 export default useGenres

@@ -1,7 +1,12 @@
 import { useQuery } from '@tanstack/react-query'
-import { Platform } from './useGames'
 import apiClient, { FetchResponse } from '../services/api-client'
 import platforms from '../data/platforms'
+
+export interface Platform {
+  id: number
+  name: string
+  slug: string
+}
 
 const usePlatforms = () =>
   useQuery<FetchResponse<Platform>, Error>({
@@ -13,7 +18,5 @@ const usePlatforms = () =>
     staleTime: 24 * 60 * 60 * 1000,
     initialData: platforms,
   })
-
-// const usePlatforms = () => useData<Platform>('/platforms/lists/parents')
 
 export default usePlatforms

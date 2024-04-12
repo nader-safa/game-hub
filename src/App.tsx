@@ -5,9 +5,9 @@ import GenreList from './components/genreList'
 import { Genre } from './hooks/useGenres'
 import { useState } from 'react'
 import PlatformSelector from './components/platformSelector'
-import { Platform } from './hooks/useGames'
 import SortSelector from './components/sortSelector'
 import GameHeading from './components/gameHeading'
+import { Platform } from './hooks/usePlatforms'
 
 export interface SortOrder {
   value: string

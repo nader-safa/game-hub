@@ -7,8 +7,7 @@ import {
   Spinner,
 } from '@chakra-ui/react'
 import { FaChevronDown } from 'react-icons/fa'
-import usePlatforms from '../hooks/usePlatforms'
-import { Platform } from '../hooks/useGames'
+import usePlatforms, { Platform } from '../hooks/usePlatforms'
 
 interface Props {
   selectedPlatform: Platform | null
