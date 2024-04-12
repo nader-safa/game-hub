@@ -1,9 +1,10 @@
-import { Button, SimpleGrid, Text } from '@chakra-ui/react'
+import { SimpleGrid, Spinner, Text } from '@chakra-ui/react'
+import InfiniteScroll from 'react-infinite-scroll-component'
+import { GameQuery } from '../App'
 import useGames from '../hooks/useGames'
 import GameCard from './gameCard'
-import GameCardSkeleton from './gameCardSkeleton'
 import GameCardContainer from './gameCardContainer'
-import { GameQuery } from '../App'
+import GameCardSkeleton from './gameCardSkeleton'
 
 interface Props {
   gameQuery: GameQuery
@@ -14,15 +15,38 @@ const GamesGrid = ({ gameQuery }: Props) => {
     data: games,
     error,
     isLoading,
-    isFetchingNextPage,
     fetchNextPage,
     hasNextPage,
+    refetch,
   } = useGames(gameQuery)
+
+  const fetchedGamesCount =
+    games?.pages.reduce((total, page) => total + page.results.length, 0) || 0
 
   if (error) return <Text>{error.message}</Text>
 
   return (
-    <>
+    <InfiniteScroll
+      dataLength={fetchedGamesCount} //This is important field to render the next data
+      next={fetchNextPage}
+      hasMore={hasNextPage}
+      loader={<Spinner />}
+      endMessage={
+        <p style={{ textAlign: 'center' }}>
+          <b>Yay! You have seen it all</b>
+        </p>
+      }
+      // below props only if you need pull down functionality
+      refreshFunction={refetch}
+      pullDownToRefresh
+      pullDownToRefreshThreshold={50}
+      pullDownToRefreshContent={
+        <h3 style={{ textAlign: 'center' }}>&#8595; Pull down to refresh</h3>
+      }
+      releaseToRefreshContent={
+        <h3 style={{ textAlign: 'center' }}>&#8593; Release to refresh</h3>
+      }
+    >
       <SimpleGrid columns={{ sm: 1, md: 2, lg: 3, xl: 4 }} spacing={5}>
         {isLoading &&
           [1, 2, 3, 4, 5, 6].map((i) => (
@@ -38,16 +62,7 @@ const GamesGrid = ({ gameQuery }: Props) => {
           ))
         )}
       </SimpleGrid>
-      {hasNextPage && (
-        <Button
-          onClick={() => fetchNextPage()}
-          disabled={isFetchingNextPage}
-          my={5}
-        >
-          {isFetchingNextPage ? 'Loading...' : 'Load More'}
-        </Button>
-      )}
-    </>
+    </InfiniteScroll>
   )
 }
 
