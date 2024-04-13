@@ -9,14 +9,15 @@ import {
 import { FaChevronDown } from 'react-icons/fa'
 import usePlatforms from '../hooks/usePlatforms'
 import usePlatform from '../hooks/usePlatform'
+import useGameQueryStore from '../store'
 
-interface Props {
-  selectedPlatformId?: number
-  onPlatformSelect: (platformId: number) => void
-}
-
-const PlatformSelector = ({ selectedPlatformId, onPlatformSelect }: Props) => {
+const PlatformSelector = () => {
   const { data: platforms, error, isLoading } = usePlatforms()
+
+  const { selectedPlatformId, onPlatformSelect } = useGameQueryStore((s) => ({
+    selectedPlatformId: s.gameQuery.platformId,
+    onPlatformSelect: s.setPlatformId,
+  }))
 
   const selectedPlatform = usePlatform(selectedPlatformId)
 

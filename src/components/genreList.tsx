@@ -10,14 +10,13 @@ import {
 } from '@chakra-ui/react'
 import useGenres from '../hooks/useGenres'
 import optimizedImageUrl from '../services/image-url'
+import useGameQueryStore from '../store'
 
-interface Props {
-  selectedGenreId?: number
-  onGenreSelect: (genreId: number) => void
-}
-
-const GenreList = ({ onGenreSelect, selectedGenreId }: Props) => {
+const GenreList = () => {
   const { data: genres, error, isLoading } = useGenres()
+
+  const selectedGenreId = useGameQueryStore((s) => s.gameQuery.genreId)
+  const onGenreSelect = useGameQueryStore((s) => s.setGenreId)
 
   if (error) return null
 
