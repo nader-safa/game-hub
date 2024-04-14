@@ -10,7 +10,6 @@ const HomePage = () => {
     <Grid
       templateAreas={{ base: `"main"`, lg: `"aside main"` }}
       templateColumns={{ base: '1fr', lg: '200px 1fr' }}
-      padding='10px'
       gap={3}
     >
       <Show above='lg'>

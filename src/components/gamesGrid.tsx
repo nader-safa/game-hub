@@ -42,7 +42,7 @@ const GamesGrid = () => {
         <h3 style={{ textAlign: 'center' }}>&#8593; Release to refresh</h3>
       }
     >
-      <SimpleGrid columns={{ sm: 1, md: 2, lg: 3, xl: 4 }} spacing={5}>
+      <SimpleGrid columns={{ sm: 1, md: 2, lg: 3, xl: 4 }} spacing={5} my={3}>
         {isLoading &&
           [1, 2, 3, 4, 5, 6].map((i) => (
             <GameCardContainer key={i}>
